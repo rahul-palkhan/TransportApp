@@ -1,3 +1,6 @@
+using CarTransportBack.Entity;
+using Microsoft.EntityFrameworkCore;
+
 namespace CarTransportBack
 {
     public class Program
@@ -5,9 +8,9 @@ namespace CarTransportBack
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            var Connection = builder.Configuration.GetConnectionString("TransportDBConnection");
             // Add services to the container.
-
+            builder.Services.AddDbContext<TransportDBContext>(option=>option.UseSqlServer(Connection));
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
