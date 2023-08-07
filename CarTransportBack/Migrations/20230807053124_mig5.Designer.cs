@@ -4,6 +4,7 @@ using CarTransportBack.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarTransportBack.Migrations
 {
     [DbContext(typeof(TransportDBContext))]
-    partial class TransportDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230807053124_mig5")]
+    partial class mig5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,10 +34,6 @@ namespace CarTransportBack.Migrations
 
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
-
-                    b.Property<string>("DriverName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("End")
                         .IsRequired()
@@ -112,7 +110,7 @@ namespace CarTransportBack.Migrations
 
             modelBuilder.Entity("CarTransportBack.Entity.Ride", b =>
                 {
-                    b.HasOne("CarTransportBack.Entity.Car", "car")
+                    b.HasOne("CarTransportBack.Entity.Ride", "ride")
                         .WithMany()
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -124,7 +122,7 @@ namespace CarTransportBack.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("car");
+                    b.Navigation("ride");
 
                     b.Navigation("user");
                 });

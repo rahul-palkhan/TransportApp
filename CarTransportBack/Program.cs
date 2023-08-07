@@ -10,6 +10,7 @@ namespace CarTransportBack
         {
             var builder = WebApplication.CreateBuilder(args);
             var Connection = builder.Configuration.GetConnectionString("TransportDBConnection");
+            var MyAllowSpecificOrigins = "_myAllowedSpecificOrigins";
             // Add services to the container.
             builder.Services.AddTransient<IUserService,UserService>();
             builder.Services.AddTransient<IRideService,RideService>();
@@ -20,6 +21,16 @@ namespace CarTransportBack
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                    policy =>
+                    {
+                        policy.AllowAnyHeader();
+                        policy.AllowAnyMethod();
+                    });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -29,6 +40,8 @@ namespace CarTransportBack
                 app.UseSwaggerUI();
             }
 
+            
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthorization();
 
 
