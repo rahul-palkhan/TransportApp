@@ -28,6 +28,7 @@ namespace CarTransportBack
                     {
                         policy.AllowAnyHeader();
                         policy.AllowAnyMethod();
+                        policy.AllowAnyOrigin();
                     });
             });
 

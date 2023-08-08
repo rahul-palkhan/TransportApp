@@ -38,5 +38,10 @@ namespace CarTransportBack.Services
                 throw;
             }
         }
+
+        public User? Validate(string username, string password)
+        {
+            return _dbContext.users.SingleOrDefault(u => u.UserName == username && u.passcode == password);
+        }
     }
 }

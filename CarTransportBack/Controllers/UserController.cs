@@ -16,7 +16,7 @@ namespace CarTransportBack.Controllers
             this.userService = userService;
         }
 
-        [HttpPut, Route("AddUser")]
+        [HttpPost, Route("AddUser")]
         public IActionResult AddUser(User user)
         {
             try

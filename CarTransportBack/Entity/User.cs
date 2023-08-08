@@ -9,5 +9,7 @@ namespace CarTransportBack.Entity
         [Required]
         public string? UserName { get; set; }
         public string? Mobile { get; set; }
+        public int CarOwner { get; set; }
+        public string passcode { get; set; }
     }
 }
