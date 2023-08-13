@@ -1,12 +1,12 @@
-﻿using CarTransportBack.Entity;
+﻿using CarTransportBack.DTO;
+using CarTransportBack.Entity;
 
 namespace CarTransportBack.Services
 {
     public interface IRideService
     {
         public void Add(Ride ride);
-        public void Remove(int id);
-        public Ride GetRide(int id);
+        public List<UpcomingsRides> GetRideByUserId(int id);
         public List<Ride> GetAllRides();
     }
 }

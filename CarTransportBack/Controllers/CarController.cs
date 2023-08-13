@@ -15,7 +15,7 @@ namespace CarTransportBack.Controllers
         {
             this.carService = carService;
         }
-        [HttpPut,Route("AddCar")]
+        [HttpPost,Route("AddCar")]
         public IActionResult AddCar(Car car)
         {
             try

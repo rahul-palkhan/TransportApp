@@ -1,4 +1,5 @@
-﻿using CarTransportBack.Entity;
+﻿using CarTransportBack.DTO;
+using CarTransportBack.Entity;
 
 namespace CarTransportBack.Services
 {
@@ -39,11 +40,15 @@ namespace CarTransportBack.Services
             }
         }
 
-        public Ride GetRide(int id)
+        public List<UpcomingsRides> GetRideByUserId(int id)
         {
             try
             {
-                return _dbContext.rides.SingleOrDefault(x => x.TripId == id);
+                
+                List<UpcomingsRides> ride=(from r in _dbContext.rides
+                                 join u in _dbContext.users on r.UserId equals u.UserId
+                                 select new UpcomingsRides { DriverName=u.UserName,UserId=u.UserId,Start=r.Start,End=r.End,NoOfSeats=r.NoOfSeats,isCompleted=r.isCompleted}).ToList();
+                return ride;
             }
             catch (Exception)
             {
@@ -52,18 +57,5 @@ namespace CarTransportBack.Services
             }
         }
 
-        public void Remove(int id)
-        {
-            try
-            {
-                _dbContext.rides.Remove(GetRide(id));
-                _dbContext.SaveChanges();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
     }
 }

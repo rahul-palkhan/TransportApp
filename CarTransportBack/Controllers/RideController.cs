@@ -1,4 +1,5 @@
-﻿using CarTransportBack.Entity;
+﻿using CarTransportBack.DTO;
+using CarTransportBack.Entity;
 using CarTransportBack.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,12 +31,12 @@ namespace CarTransportBack.Controllers
             }
         }
 
-        [HttpGet,Route("GetRide/{id}")]
+        [HttpGet,Route("GetRideByUserId/{id}")]
         public IActionResult GetRide(int id)
         {
             try
             {
-                Ride ride = _rideService.GetRide(id);
+                List<UpcomingsRides> ride = _rideService.GetRideByUserId(id);
                 if (ride != null)
                 {
                     return Ok(ride);
@@ -52,21 +53,21 @@ namespace CarTransportBack.Controllers
             }
         }
 
-        [HttpDelete,Route("DeleteRide/{id}")]
-        public IActionResult DeleteRide(int id)
-        {
-            try
-            {
-                _rideService.Remove(id);
-                return Ok();
-            }
-            catch (Exception)
-            {
+        //[HttpDelete,Route("DeleteRide/{id}")]
+        //public IActionResult DeleteRide(int id)
+        //{
+        //    try
+        //    {
+        //        _rideService.Remove(id);
+        //        return Ok();
+        //    }
+        //    catch (Exception)
+        //    {
 
-                return StatusCode(500);
-            }
-        }
-        [HttpPut,Route("AddRide")]
+        //        return StatusCode(500);
+        //    }
+        //}
+        [HttpPost,Route("AddRide")]
         public IActionResult AddRide(Ride ride)
         {
             try
